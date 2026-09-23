@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="An interactive reading and annotation workspace for close reading, argument mapping, synthesis, and active recall." />
+  <title>Group Dynamics Reading Studio · Fall 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..600&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="reader-19.0.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="topbar">
+    <div class="brand"><div><b>Group Dynamics</b><small>Fall 2026 reading studio</small></div></div>
+    <nav id="viewTabs" aria-label="Workspace views">
+      <button class="active" data-view="reader">Reader & Notes</button>
+      <button data-view="lecture">Lecture Notes</button>
+      <button data-view="syllabus">Syllabus</button>
+      <button data-view="synthesis">Synthesis</button>
+      <button data-view="canvas">Concept Map</button>
+      <button data-view="quiz">Study Cards</button>
+      <button data-view="markdown">Obsidian / MD</button>
+    </nav>
+    <div class="save-state"><span></span> Saved locally</div>
+  </header>
+
+  <main id="main-content">
+    <section id="readerView" class="view active">
+      <aside class="library">
+        <p class="eyebrow">Course reader</p>
+        <h1>Weekly Units</h1>
+        <details class="week-unit" open>
+          <summary><span>Week 2</span><b>Freud unit</b><i>⌄</i></summary>
+          <div class="week-unit-body">
+            <p class="muted">Choose a reading, then select text to annotate.</p>
+            <button id="guidedAssistToggle" class="guided-assist-entry" aria-expanded="false">Guided Reading <span>Argument map →</span></button>
+            <div id="readingTabs" class="reading-tabs"></div>
+            <div class="progress-card"><div><span>Reading progress</span><b id="progressLabel">0 / 3</b></div><div class="progress"><i id="progressBar"></i></div><label><input id="readToggle" type="checkbox"> Mark as read</label></div>
+          </div>
+        </details>
+        <div class="reading-shortcuts" aria-label="Reading navigation tools">
+          <button id="returnToTop" class="round-shortcut top-shortcut" title="Return to top"><i class="return-top-icon"><span></span></i><span>Top</span></button>
+          <button id="bookmarkCurrent" class="round-shortcut bookmark-shortcut" aria-expanded="false" title="Bookmark current page"><i></i><span>Bookmark</span></button>
+          <section id="bookmarkPanel" class="bookmark-panel" hidden>
+            <div><b>PAGE BOOKMARKS</b><button id="closeBookmarks" aria-label="Close bookmarks">×</button></div>
+            <p>Select a bookmark to return to its page.</p>
+            <div id="bookmarkList"></div>
+          </section>
+        </div>
+      </aside>
+
+      <section class="document-panel">
+        <div class="document-head">
+          <div><p id="docMeta" class="eyebrow"></p><h2 id="docTitle"></h2></div>
+          <div class="doc-actions"><input id="searchInput" type="search" placeholder="Search reading…"><div class="align-tabs" aria-label="Paragraph alignment"><button class="active" data-text-align="justify" aria-pressed="true">Justify</button><button data-text-align="left" aria-pressed="false">Left</button></div><button id="inlineAssistToggle" aria-pressed="false">Inline Guide</button><button id="overviewToggle" aria-expanded="false">Overview</button><button id="openPdf">Source PDF ↗</button></div>
+        </div>
+        <article id="documentText" class="document-text" tabindex="0"></article>
+        <aside id="readingProgressRail" class="reading-progress-rail" aria-label="Reading progress"><span id="progressCurrent">PDF 1</span><div><i id="pageProgressBar"></i></div><b id="progressRemaining">9 pages left</b><small id="progressPrinted"></small></aside>
+      </section>
+
+      <aside class="notes-panel">
+        <div class="notes-head"><div><p class="eyebrow">Marginalia</p><h2>My notes</h2></div><span id="noteCount" class="count">0</span></div>
+        <p class="hint">Annotations become connected note cards here.</p>
+        <div id="notesList" class="notes-list"></div>
+        <div id="emptyNotes" class="empty"><span>✦</span><b>No annotations yet</b><p>Select a sentence and choose an annotation type.</p></div>
+        <aside id="argumentRail" class="argument-rail" aria-expanded="false">
+          <button id="argumentRailToggle" class="argument-rail-toggle" aria-label="Expand argument legend" title="Expand or collapse the inline guide">‹</button>
+          <div class="argument-rail-content"><p class="eyebrow">Inline guide</p><h3>Argument colors</h3>
+            <button data-argument-type="support"><i></i><span><b>Blue</b><small>Supporting evidence</small></span></button><button data-argument-type="counter"><i></i><span><b>Red</b><small>Counterargument / limitation</small></span></button><button data-argument-type="progression"><i></i><span><b>Green</b><small>Progression / inference</small></span></button><button data-argument-type="concession"><i></i><span><b>Purple</b><small>Concession / qualification</small></span></button><button data-argument-type="definition"><i></i><span><b>Orange</b><small>Definition / distinction</small></span></button><button data-argument-type="hypothesis"><i></i><span><b>Yellow</b><small>Hypothesis / uncertainty</small></span></button>
+            <div id="argumentRailDetail" class="argument-rail-detail">Enable the inline guide, then select a colored passage to see its argumentative role.</div>
+          </div>
+        </aside>
+      </aside>
+    </section>
+
+    <section id="lectureView" class="view reference-view lecture-compare-view">
+      <aside class="reference-index"><p class="eyebrow">LECTURE ARCHIVE</p><h1>Lecture Notes</h1><p class="muted">Covered slides appear on the left; structured notes appear on the right. Professor transcripts use forest green.</p><nav id="lectureIndex" aria-label="Lecture dates"></nav><p id="coverageLabel" class="coverage-label"></p><button id="openSlidesSource">Source slides ↗</button><div class="local-file-box"><b>Additional transcript</b><p>Load a local .txt or .md file for this session only.</p><label class="file-button">Choose transcript<input id="transcriptFile" type="file" accept=".txt,.md,text/plain,text/markdown"></label><button id="clearTranscript" hidden>Remove from page</button></div></aside>
+      <article id="lectureBook" class="reference-book lecture-spread-book"></article>
+    </section>
+
+    <section id="syllabusView" class="view syllabus-view">
+      <aside class="syllabus-index"><p class="eyebrow">COURSE MAP</p><h1>Syllabus</h1><nav><button data-syllabus-target="syllabus-overview">Course Overview</button><button data-syllabus-target="syllabus-grades">Assessment</button><button data-syllabus-target="syllabus-policies">Policies</button><button data-syllabus-target="syllabus-timeline">Timeline</button><button data-syllabus-target="syllabus-readings">Required Readings</button></nav><button id="openSyllabusSource">Source PDF ↗</button></aside>
+      <article class="syllabus-document"><section id="syllabus-overview"></section><section id="syllabus-grades"></section><section id="syllabus-policies"></section><section id="syllabus-timeline"></section><section id="syllabus-readings"></section></article>
+    </section>
+
+    <aside id="guidedAssist" class="guided-assist" aria-hidden="true">
+      <button id="guidedAssistClose" class="guided-assist-close" aria-label="Close guided reading">×</button>
+      <div class="guided-assist-head"><p class="eyebrow">GUIDED READING</p><h2>Argument Structure</h2><p>The active argument updates as the reading scrolls.</p></div>
+      <div id="guidedCategories" class="guided-categories"></div>
+      <article id="guidedAbstract" class="guided-abstract"></article>
+    </aside>
+    <aside id="readingOverview" class="reading-overview" aria-hidden="true"><button id="overviewClose" aria-label="Close reading overview">×</button><div id="overviewContent"></div></aside>
+
+    <section id="synthesisView" class="view content-view">
+      <div class="section-title"><p class="eyebrow">SYNTHESIS</p><h1>Claims, Evidence, and Disagreements</h1><p>This synthesis supports navigation without replacing the primary texts. Select an author tag to return to the reading.</p></div>
+      <div id="summaryGrid" class="summary-grid"></div>
+      <section class="comparison"><p class="eyebrow">ARGUMENT MAP</p><h2>Where the Authors Agree and Disagree</h2><div id="conflictGrid" class="conflict-grid"></div></section>
+    </section>
+
+    <section id="canvasView" class="view canvas-view">
+      <div class="canvas-toolbar"><div><p class="eyebrow">KNOWLEDGE CANVAS</p><h1>Concept Relationship Map</h1></div><p>Drag cards. Double-click the canvas to add a concept or a card to edit it.</p><button id="resetCanvas">Reset Layout</button></div>
+      <div id="conceptCanvas" class="concept-canvas"><canvas id="linkCanvas"></canvas></div>
+    </section>
+
+    <section id="quizView" class="view content-view quiz-view">
+      <div class="quiz-heading">
+        <div class="section-title"><p class="eyebrow">ACTIVE RECALL</p><h1>Concept Review and Practice</h1><p>Answer each question to reveal the correct answer and explanation.</p></div>
+        <div class="quiz-stats"><b id="quizScore">0 / 0</b><span>Local response history</span></div>
+      </div>
+      <div class="quiz-layout">
+        <aside class="quiz-sidebar"><button id="openImport" class="primary">＋ Import Questions</button><button id="copyQuizPrompt">Copy Question Prompt</button><button id="resetQuiz">Reset Responses</button><div class="connection-note"><b>ChatGPT Bridge</b><p>This local page cannot access private chats. Copy the prompt to ChatGPT, request JSON, and import the result. Questions remain on this device.</p></div><div id="quizFilters" class="quiz-filters"></div></aside>
+        <div id="quizList" class="quiz-list"></div>
+      </div>
+    </section>
+
+    <section id="markdownView" class="view content-view">
+      <div class="section-title"><p class="eyebrow">OBSIDIAN BRIDGE</p><h1>Connected Markdown Export</h1><p>Exports use properties, <code>[[wikilinks]]</code>, and blockquotes for direct use in an Obsidian vault.</p></div>
+      <div class="md-layout">
+        <div class="md-controls"><label>Export content<select id="mdReading"></select></label><button id="copyMd">Copy Markdown</button><button id="downloadMd" class="primary">Download .md</button><div class="tip"><b>Add to Obsidian</b><ol><li>Download the file</li><li>Move it into the course folder in your vault</li><li>Concepts appear as connected <code>[[wikilinks]]</code></li></ol></div></div>
+        <pre id="mdPreview" class="md-preview"></pre>
+      </div>
+    </section>
+  </main>
+
+  <div id="selectionTools" class="annotation-tools floating-tools" aria-label="Annotation tools">
+    <button data-style="yellow"><i class="swatch yellow"></i> Question</button>
+    <button data-style="blue"><i class="swatch blue"></i> Support</button>
+    <button data-style="counter"><i class="swatch counter"></i> Counterpoint</button>
+    <button data-style="think"><i class="swatch think"></i> Reflection</button>
+    <button data-style="mint"><i class="swatch mint"></i> Evidence</button>
+    <button data-style="underline"><i class="swatch underline"></i> Underline</button>
+    <button data-style="term"><i class="swatch term"></i> Term</button>
+    <button data-style="research"><i class="swatch research"></i> Research Term</button>
+    <button data-style="course"><i class="swatch course"></i> Course Link</button>
+    <button id="deleteAnnotation" class="delete-annotation" hidden>Delete</button>
+    <button id="clearSelection" class="ghost" aria-label="Cancel selection">×</button>
+  </div>
+  <div id="toast" role="status"></div>
+  <dialog id="importDialog" class="import-dialog">
+    <form method="dialog"><button class="dialog-close" value="cancel" aria-label="Close">×</button></form>
+    <p class="eyebrow">IMPORT HOMEWORK</p><h2>Import Practice Questions</h2><p class="hint">Paste a JSON array or use the sample format. Separate questions with a blank line.</p>
+    <textarea id="importText" placeholder="Concept: Psychical conflict and defence\nQuestion: What does defence separate first?\nA. Idea and affect\nB. Ego and id\nAnswer: A\nExplanation A: Correct. Defence separates the idea from its attached affect.\nExplanation B: Incorrect. This is not the immediate mechanism described in the text."></textarea>
+    <div class="dialog-actions"><button id="loadSample">View Sample</button><button id="importQuestions" class="primary">Import Questions</button></div><p id="importError" class="import-error"></p>
+  </dialog>
+  <script src="public/reader-data.js"></script>
+  <script src="public/reader-layout-12.0.js"></script>
+  <script src="public/lecture-18.0/data.js"></script>
+  <script src="reader-19.0.js"></script>
+</body>
+</html>
