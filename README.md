@@ -6,7 +6,7 @@ An interactive browser-based workspace for close reading, annotation, argument m
 
 The Reading Studio turns dense academic texts into a structured learning environment. Readers can identify argumentative roles, create linked marginal notes, compare authors, build concept relationships, and test understanding with retrieval-practice questions.
 
-This public portfolio edition contains the three course readings and an English-only presentation of the author's own lecture notes. Instructor slide images, transcripts, local file paths, Chinese private content, and earlier development versions are not included.
+This public portfolio edition contains the three course readings, an English-only presentation of the author's own lecture notes, and eight representative slide excerpts used to demonstrate slide-to-note alignment. Instructor transcripts, the complete slide deck, local file paths, Chinese private content, and earlier development versions are not included.
 
 ## Key features
 
@@ -16,6 +16,7 @@ This public portfolio edition contains the three course readings and an English-
 - Guided reading and structured overviews
 - Cross-text synthesis and a draggable concept map
 - Interactive multiple-choice practice with answer explanations
+- A lecture reference view that aligns selected slide excerpts with structured student notes
 - Markdown export designed for Obsidian workflows
 - Responsive, keyboard-accessible interface with automatic light and dark themes
 
@@ -24,7 +25,7 @@ This public portfolio edition contains the three course readings and an English-
 - Local-first storage keeps annotations on the reader's device.
 - Argument highlights remain separate from personal annotations so readers can add their own interpretation without losing the underlying guide.
 - Page-level marginalia keeps notes spatially connected to the passage that produced them.
-- The public edition separates student-authored notes from instructor-owned slide images and transcripts.
+- The public edition uses a limited set of slide excerpts for educational prototype demonstration and does not reproduce the complete course deck or instructor transcripts.
 
 ## Run locally
 
